@@ -65,7 +65,18 @@ describe 'plot index' do
     expect(page).to have_link('Remove arugula from Plot Number 6', :count => 1)
   end
 
-  it 'clicking the link removes plant from plot' 
+  it 'clicking the link removes plant from plot' do
+    click_link('Remove tomato from Plot Number 1')
 
-  it 'clicking the link does not remove plant from other plots'
+    expect(current_path).to eq "/plots"
+    expect(page).not_to have_link("Remove tomato from Plot Number 1")
+  end
+
+  it 'clicking the link does not remove plant from other plots' do
+    click_link('Remove tomato from Plot Number 1')
+
+    expect(current_path).to eq "/plots"
+    expect(page).not_to have_link("Remove tomato from Plot Number 1")
+    expect(page).to have_link("Remove tomato from Plot Number 4")
+  end
 end
