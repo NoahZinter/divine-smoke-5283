@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe 'plot index' do
   before(:each) do
+    Garden.destroy_all
+    Plot.destroy_all
+    Plant.destroy_all
+    PlotPlant.destroy_all
     @garden = Garden.create!(name: 'magic garden', organic: 'true')
     @wrong_garden = Garden.create!(name: 'non-magic garden', organic: 'false')
     @plot_1 = @garden.plots.create!(number: 1, size: 'small', direction: 'north')
@@ -46,5 +50,22 @@ describe 'plot index' do
     expect(page).to have_content("Plot Number: 6")
   end
 
-  it 'lists all plot plants under each plot number'
+  it 'lists all plot plants under each plot number' do
+    expect(page).to have_content('swiss chard', :count => 4)
+    expect(page).to have_content('potato', :count => 4)
+    expect(page).to have_content('okra', :count => 2)
+  end
+
+  it 'contains a link to remove plant from plot' do
+    expect(page).to have_link('Remove tomato from Plot Number 1', :count => 1)
+    expect(page).to have_link('Remove okra from Plot Number 2', :count => 1)
+    expect(page).to have_link('Remove pea from Plot Number 3', :count => 1)
+    expect(page).to have_link('Remove tomato from Plot Number 4', :count => 1)
+    expect(page).to have_link('Remove potato from Plot Number 5', :count => 1)
+    expect(page).to have_link('Remove arugula from Plot Number 6', :count => 1)
+  end
+
+  it 'clicking the link removes plant from plot' 
+
+  it 'clicking the link does not remove plant from other plots'
 end
