@@ -1,4 +1,4 @@
 class PlotPlant < ApplicationRecord
-  belongs_to :plants
-  belongs_to :plots
+  belongs_to :plant
+  belongs_to :plot
 end
