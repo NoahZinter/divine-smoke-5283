@@ -1,0 +1,8 @@
+<h1><%= "All Plots" %> </h1>
+
+<% @plots.each do |plot| %>
+<%= "Plot Number: #{plot.number}" %>
+<% plot.plants.each do |plant| %>
+<%= plant.name %>
+<% end %>
+<% end %>
