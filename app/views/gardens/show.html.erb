@@ -1,0 +1,8 @@
+<h1><%= "Information for #{@garden.name}" %> </h1>
+<p><%= "Garden Name: #{@garden.name}" %></p>
+<p><%= "Is #{@garden.name} organic? #{@garden.organic}" %></p>
+<p><%= "The following plants can be found at #{@garden.name}" %></p>
+<% @plants.each do |plant| %>
+  <p><%= plant.name %>
+    <%= "Can be harvested within #{plant.days_to_harvest} days"%></p>
+    <% end %>

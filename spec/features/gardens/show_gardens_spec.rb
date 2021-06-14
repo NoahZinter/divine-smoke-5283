@@ -39,10 +39,34 @@ describe 'gardens show page' do
     @plot_plant_13 = PlotPlant.create!(plot: @plot_5, plant: @plant_2)
     @plot_plant_14 = PlotPlant.create!(plot: @plot_6, plant: @plant_3)
     @plot_plant_15 = PlotPlant.create!(plot: @plot_6, plant: @plant_4)
+    @plot_plant_16 = PlotPlant.create(plot: @plot_1, plant: @plant_10)
     visit "/gardens/#{@garden.id}"
   end
-  it 'has a unique list of plants in garden plots'
+  it 'has a header' do
+    expect(page).to have_content('Information for magic garden')
+  end
 
-  it 'does not include plants with harvest time over 100 days'
+  it 'lists garden name' do
+    expect(page).to have_content('Garden Name: magic garden')
+  end
+
+  it 'lists organic status' do
+    expect(page).to have_content('Is magic garden organic? true')
+  end
+
+  it 'has a unique list of plants in garden plots' do
+    expect(page).to have_content('The following plants can be found at magic garden')
+    expect(page).to have_content('potato', :count => 1)
+    expect(page).to have_content('pea', :count => 1)
+    expect(page).to have_content('swiss chard', :count => 1)
+    expect(page).to have_content('broccoli', :count => 1)
+    expect(page).to have_content('okra', :count => 1)
+  end
+
+  it 'does not include plants with harvest time over 100 days' do
+    expect(page).not_to have_content('tomato')
+    expect(page).not_to have_content('bell pepper')
+    expect(page).not_to have_content('carrot')
+  end
 
 end
